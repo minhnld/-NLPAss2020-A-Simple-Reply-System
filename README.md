@@ -1,7 +1,7 @@
 # Natural Language Processing Assignment
 ## A Simple Reply System
 
-If you are reading the raw README.md, you'd better visit [This GitHub Project](https://github.com/ghostbbbmt/NLP2017_Assignment) to have a better, clearer README :)
+If you are reading the raw README.md, you'd better visit [This GitHub Project](https://github.com/minhnld/-NLPAss2020-A-Simple-Reply-System) to have a better, clearer README :)
 
 ### 1. Description
 This project is a reply system about flights' information using natural language techniques. 
@@ -19,7 +19,8 @@ With a query as the above procedure semantics form, the system will lookup in th
 ### 3. System structure
 There are 4 python files as 4 modules:
 - [main.py](main.py) : The start point of the program.
-- [nlp_parser.py](nlp_parser.py) : Parser module. Include a function that parse logical structure to procedure semantics form.
+- [nlp_parser.py](nlp_parser.py) : NLTK Grammar for English Ver. Parser module. Include a function that parse logical structure to procedure semantics form.
+- [spacy_parser.py](spacy_parser.py) : spaCy Parser module.
 - [nlp_data.py](nlp_data.py) : Database module. Define the given dataset and provide lookup function for answering the question.
 - [nlp_file.py](nlp_file.py) : File module. Write answers to text files as required.
 - [code_featstructures.py](code_featstructures.py): Variable Expression and Feature Struct Expression of the DFG tree
@@ -48,13 +49,14 @@ pip install pyvi
 pip install https://github.com/trungtv/vi_spacy/raw/master/packages/vi_spacy_model-0.2.1/dist/vi_spacy_model-0.2.1.tar.gz
 ```
 Voila !! done </br>
-But if you using anaconda virtual enviroment, the installation process is not yet done, Run this command or manually copy the vivi model package that you has just downloaded in step 3 into python package management (pip or something else) folder.
+But if you using anaconda virtual enviroment, the installation process is not yet done. Run this command or manually copy the vivi model package that you has just downloaded in step 3 into python package management (pip or something else) folder.
 ```bash 
 python -m spacy link vi_spacy_model vi_spacy_model
 ```
 ##### spaCy doc
-For more infomation please refer to https://spacy.io/usage for documentation
-and https://spacy.io/api/annotation#pos-tagging (Syntactic Dependency Parsing/Universal Part-of-speech Tags) , https://universaldependencies.org/vi/dep/  for tag definition.
+- For more infomation please refer to https://spacy.io/usage for documentation
+- https://spacy.io/api/annotation#pos-tagging (Syntactic Dependency Parsing/Universal Part-of-speech Tags)
+- https://universaldependencies.org/vi/dep/  for tag definition.
 #### There are two ways of running the program:
 Use default arguments:
 ```sh
@@ -65,10 +67,10 @@ Use custom arguments:
 python main.py --question [question] --rule_file_name [rule_file_name] --language ['english','vietnamese'] --visualize ['on','off']
 ```
 Usage:
-- ```--question``` : The input question in English or Vietnamese. Default: "*Which flight to Huế city arrives at 20:00HR ?*"
--  ```--rule_file_name``` : The context free grammar file (.fcfg). Default: *grammar.fcfg*
-- ``` --language ``` : english or vietnamese, (the default option is Vietnamese)
-- ``` --visualize ``` : Visualize the SpaCy dependency tree with nltk.tree, you can choose to turn on or off this feature by pass this to command line --visualize 'on' (or 'off')  (the default option is "Off" )
+- ```--question``` : The input question in English or Vietnamese. Default: "*Thời gian xe bus B1 từ Hồ Chí Minh đến Huế ?*"
+-  ```--rule_file_name``` : The context free grammar for English version file (.fcfg). Default: *grammar.fcfg*
+- ``` --language ``` : english or vietnamese, (the default option is 'vietnamese' )
+- ``` --visualize ``` : Visualize the SpaCy dependency arc, you can choose to turn on or off this feature by pass this to command line --visualize 'on' (or 'off')  (the default option is 'off' )
 #### Important note !!!
 You might unable to run the program when input vietnamese text into the command line, and the debug console show something like this :
 ```
@@ -137,8 +139,8 @@ Serving on http://0.0.0.0:5000 ...
 127.0.0.1 - - [19/Aug/2020 09:55:38] "GET / HTTP/1.1" 200 6718
 127.0.0.1 - - [19/Aug/2020 09:55:38] "GET /favicon.ico HTTP/1.1" 200 6718
 ``` 
-![Result](images/VisualArc_ex2.png) </br>
-When you finish observe, press Ctrl+C in command line console to turn off and re-run the python script without --visualize 'on' &nbsp;
+![Result](images/VisualArc_ex1.png) </br>
+!!! Note: It depend on your machine IDE, When you finish observe, if it doesn't continue the code please press Ctrl+C in command line console to turn off and re-run the python script without --visualize 'on' &nbsp;
 
 Parsed logical form (in [output_c.txt](output_c.txt)) with only sem feature, but the console also show var and gap feature.
 ```
@@ -232,4 +234,157 @@ B3
 
 
 #### Other test:
+Question:
+```
+Xe bus nào đến thành phố Huế lúc 22:30HR ?
+```
+Parsed tree (style: python list format) (in [output_b.txt](output_b.txt)) look something like this : 
+```
+[Tree('lúc_N_ROOT', [Tree('Xe_bus_N_nsubj', ['nào_P_det', Tree('thành_phố_N_nmod', ['đến_E_case', 'Huế_Np_compound'])]), '2230HR_M_compound'])]
+
+```
+Console output
+```
+Token def.
+a. token.text, b. token.lemma_, c. token.pos_, d. token.tag_, e. token.dep_, f.token.shape_, g. token.is_alpha, h. token.is_stop
+0. a.Xe_bus, b.Xe_bus, c.X, d.N, e.nsubj, f.Xx_xxx, g.False, h.False
+1. a.nào, b.nào, c.X, d.P, e.det, f.xxx, g.True, h.True
+2. a.đến, b.đến, c.X, d.E, e.case, f.xxx, g.True, h.True
+3. a.thành_phố, b.thành_phố, c.X, d.N, e.nmod, f.xxxxxxxxx, g.False, h.False
+4. a.Huế, b.Huế, c.X, d.Np, e.compound, f.xxx, g.True, h.False
+5. a.lúc, b.lúc, c.X, d.N, e.ROOT, f.xxx, g.True, h.True
+6. a.2230HR, b.2230HR, c.X, d.M, e.compound, f.ddddXX, g.False, h.False
+
+NLTK spaCy Parse Tree
+                           lúc_N_ROOT
+        _______________________|____________
+       |                              Xe_bus_N_nsubj
+       |              ______________________|_______________
+       |             |                               thành_phố_N_nmod
+       |             |                       _______________|________________
+2230HR_M_compoun nào_P_det              đến_E_case                    Huế_Np_compound
+
+```
+If you choose the --visualize 'on' parameter, you need to open your browser enter localhost:5000, the result show like this picture:  &nbsp;
+``` console 
+Using the 'dep' visualizer
+Serving on http://0.0.0.0:5000 ...
+
+127.0.0.1 - - [19/Aug/2020 09:55:38] "GET / HTTP/1.1" 200 6718
+127.0.0.1 - - [19/Aug/2020 09:55:38] "GET /favicon.ico HTTP/1.1" 200 6718
+``` 
+![Result](images/VisualArc_ex1.png) </br>
+!!! Note: It depend on your machine IDE, When you finish observe, if it doesn't continue the code please press Ctrl+C in command line console to turn off and re-run the python script without --visualize 'on' &nbsp;
+
+Parsed logical form (in [output_c.txt](output_c.txt)) with only sem feature, but the console also show var and gap feature.
+```
+-------------Parsed logical form-------------
+[ gap = 'f2'                                                                   ]
+[                                                                              ]
+[       [         [      [        [ bus  = 'f2'                        ] ] ] ] ]
+[       [         [      [        [                                    ] ] ] ] ]
+[       [         [ np = [ dest = [        [ f    = 'f2'             ] ] ] ] ] ]
+[       [         [      [        [ dest = [                         ] ] ] ] ] ]
+[       [         [      [        [        [ name = [ h    = 'h3'  ] ] ] ] ] ] ]
+[       [         [      [        [        [        [ name = 'Huế' ] ] ] ] ] ] ]
+[       [         [                                                        ] ] ]
+[ sem = [ query = [      [          [ a = 'a3'                    ] ]      ] ] ]
+[       [         [      [          [ f = 'f2'                    ] ]      ] ] ]
+[       [         [ vp = [ arrive = [                             ] ]      ] ] ]
+[       [         [      [          [ t = [ t_var    = 't2'     ] ] ]      ] ] ]
+[       [         [      [          [     [ time_var = '2230HR' ] ] ]      ] ] ]
+[       [         [                                                        ] ] ]
+[       [         [ wh = [ whType = [ f    = 'f2'     ] ]                  ] ] ]
+[       [         [      [          [ type = 'WHICH1' ] ]                  ] ] ]
+[                                                                              ]
+[ var = 'a3'                                                                   ]
+```
+
+Parsed procedure semantics form (in [output_d.txt](output_d.txt))
+```
+(PRINT-ALL ?f2(BUS ?f2)(ATIME ?f2 HUE 2230HR)(DTIME ?f2 ?sd ?td)(RUNTIME ?f2  ?sd HUE))
+```
+
+Result (in [output_e.txt](output_e.txt))
+```
+-------------Retrieved result-------------
+B2
+```
+
+Question:
+```
+Xe bus nào đến thành phố Hồ Chí Minh ?
+```
+Parsed tree (style: python list format) (in [output_b.txt](output_b.txt)) look something like this : 
+```
+[Tree('Xe_bus_N_ROOT', ['nào_P_det', Tree('thành_phố_N_nmod', ['đến_E_case', 'Hồ_Chí_Minh_Np_compound'])])]
+
+```
+Console output
+```
+Token def.
+a. token.text, b. token.lemma_, c. token.pos_, d. token.tag_, e. token.dep_, f.token.shape_, g. token.is_alpha, h. token.is_stop
+0. a.Xe_bus, b.Xe_bus, c.X, d.N, e.ROOT, f.Xx_xxx, g.False, h.False
+1. a.nào, b.nào, c.X, d.P, e.det, f.xxx, g.True, h.True
+2. a.đến, b.đến, c.X, d.E, e.case, f.xxx, g.True, h.True
+3. a.thành_phố, b.thành_phố, c.X, d.N, e.nmod, f.xxxxxxxxx, g.False, h.False
+4. a.Hồ_Chí_Minh, b.Hồ_Chí_Minh, c.X, d.Np, e.compound, f.xxxxxxxxxxx, g.False, h.False
+
+
+NLTK spaCy Parse Tree
+          Xe_bus_N_ROOT
+     ___________|______________
+    |                   thành_phố_N_nmod
+    |            ______________|________________
+nào_P_det   đến_E_case                   Hồ_Chí_Minh_Np_c
+                                             ompound
+
+```
+If you choose the --visualize 'on' parameter, you need to open your browser enter localhost:5000, the result show like this picture:  &nbsp;
+``` console 
+Using the 'dep' visualizer
+Serving on http://0.0.0.0:5000 ...
+
+127.0.0.1 - - [19/Aug/2020 09:55:38] "GET / HTTP/1.1" 200 6718
+127.0.0.1 - - [19/Aug/2020 09:55:38] "GET /favicon.ico HTTP/1.1" 200 6718
+``` 
+![Result](images/VisualArc_ex3.png) </br>
+!!! Note: It depend on your machine IDE, When you finish observe, if it doesn't continue the code please press Ctrl+C in command line console to turn off and re-run the python script without --visualize 'on' &nbsp;
+
+Parsed logical form (in [output_c.txt](output_c.txt)) with only sem feature, but the console also show var and gap feature.
+```
+-------------Parsed logical form-------------
+[ gap = 'f2'                                                                           ]
+[                                                                                      ]
+[       [         [      [        [ bus  = 'f2'                                ] ] ] ] ]
+[       [         [      [        [                                            ] ] ] ] ]
+[       [         [ np = [ dest = [        [ f    = 'f2'                     ] ] ] ] ] ]
+[       [         [      [        [ dest = [                                 ] ] ] ] ] ]
+[       [         [      [        [        [ name = [ h    = 'h3'          ] ] ] ] ] ] ]
+[       [         [      [        [        [        [ name = 'Hồ_Chí_Minh' ] ] ] ] ] ] ]
+[       [         [                                                                ] ] ]
+[ sem = [ query = [      [          [ a = 'a3'                ] ]                  ] ] ]
+[       [         [      [          [ f = 'f2'                ] ]                  ] ] ]
+[       [         [ vp = [ arrive = [                         ] ]                  ] ] ]
+[       [         [      [          [ t = [ t_var    = '?t' ] ] ]                  ] ] ]
+[       [         [      [          [     [ time_var = ''   ] ] ]                  ] ] ]
+[       [         [                                                                ] ] ]
+[       [         [ wh = [ whType = [ f    = 'f2'     ] ]                          ] ] ]
+[       [         [      [          [ type = 'WHICH1' ] ]                          ] ] ]
+[                                                                                      ]
+[ var = 'a3'                                                                           ]
+```
+
+Parsed procedure semantics form (in [output_d.txt](output_d.txt))
+```
+-------------Procedure semantics-------------
+(PRINT-ALL ?f2(BUS ?f2)(ATIME ?f2 HCMC ?f2)(DTIME ?f2 ?sd ?td)(RUNTIME ?f2  ?sd HCMC))
+```
+
+Result (in [output_e.txt](output_e.txt))
+```
+-------------Retrieved result-------------
+B3 B4 B7
+```
+
 

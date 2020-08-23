@@ -1,7 +1,6 @@
 """
 © 2020 Nguyen Linh Dang Minh aka Minh Ng
 If there are any problems, contact me at minh.nldang@gmail.com or minh.nguyenlinhdang@hcmut.edu.vn 
-This project is under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) (Inherit from NLTK)
 """
 
 import nltk
@@ -133,7 +132,7 @@ if __name__ == '__main__':
     
     parser.add_argument(
       '--question',
-      default= "Which bus to Hồ Chí Minh city arrives at 05:00HR ?",
+      default= "Thời gian xe bus B1 từ Hồ Chí Minh đến Huế ?",
       help= "All the question to be parsed."
       # 
       #Thời gian xe bus B1 từ Hồ Chí Minh đến Huế ?
@@ -184,7 +183,7 @@ if __name__ == '__main__':
 
     parser.add_argument(
       '--language',
-      default= "english",
+      default= "vietnamese",
       help= "You can choose between english and vietnamese"
       )
     
