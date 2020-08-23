@@ -1,3 +1,7 @@
+"""
+© 2020 Nguyen Linh Dang Minh aka Minh Ng
+If there are any problems, contact me at minh.nldang@gmail.com or minh.nguyenlinhdang@hcmut.edu.vn 
+"""
 def code_featstructures_to_procedure(logical_tree):
     """
     Parse logical tree to procedure semantics

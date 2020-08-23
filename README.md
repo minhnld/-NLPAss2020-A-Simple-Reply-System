@@ -4,7 +4,7 @@
 If you are reading the raw README.md, you'd better visit [This GitHub Project](https://github.com/minhnld/-NLPAss2020-A-Simple-Reply-System) to have a better, clearer README :)
 
 ### 1. Description
-This project is a reply system about flights' information using natural language techniques. 
+This project is a reply system about bus's information using natural language techniques. 
 
 The input is a question in natural language (English and Vietnamese). The question will be analyzed to logical form, then the logical structure is parsed to procedure semantics form.
 
@@ -34,7 +34,7 @@ Some special cases:
  - 1712177.zip : The zip file contains submited project. 
  - [README.md](README.md) : This file, obiviously :)
 
-### 4. Installation
+### 4. spaCy Installation
 #### Dependency grammar Installation:
 1. Install spaCy
 ```bash 
@@ -48,10 +48,36 @@ pip install pyvi
 ```bash 
 pip install https://github.com/trungtv/vi_spacy/raw/master/packages/vi_spacy_model-0.2.1/dist/vi_spacy_model-0.2.1.tar.gz
 ```
+4. Check info :
+```bash
+python -m spacy info vi_spacy_model
+```
+Expect something like this:
+```console
+>>
+
+===================== Info about model 'vi_spacy_model' =====================
+
+url             https://github.com/trungtv/vivi_spacy
+source          C:\Users\Minh Ng\AppData\Local\Programs\Python\Python35\lib\site-packages\vi_spacy_model
+pipeline        ['tagger', 'parser']
+name            spacy_model
+version         0.2.1
+description     Vietnamese model for Spacy.IO
+email           trungtv@soict.hust.edu.vn
+spacy_version   >=2.1.4
+license         MIT
+lang            vi
+author          Viet-Trung TRAN
+vectors         {'keys': 65326, 'width': 128, 'vectors': 65326}
+```
 Voila !! done </br>
-But if you using anaconda virtual enviroment, the installation process is not yet done. Run this command or manually copy the vivi model package that you has just downloaded in step 3 into python package management (pip or something else) folder.
+But if you using anaconda virtual enviroment, you might get into trouble cause the installation process is not yet done. Run this command or manually copy the vivi model package that you has just downloaded in step 3 into python package management (pip or something else) folder. And redo step 4.
 ```bash 
 python -m spacy link vi_spacy_model vi_spacy_model
+```
+```bash
+python3 -m spacy info
 ```
 ##### spaCy doc
 - For more infomation please refer to https://spacy.io/usage for documentation
@@ -139,7 +165,7 @@ Serving on http://0.0.0.0:5000 ...
 127.0.0.1 - - [19/Aug/2020 09:55:38] "GET / HTTP/1.1" 200 6718
 127.0.0.1 - - [19/Aug/2020 09:55:38] "GET /favicon.ico HTTP/1.1" 200 6718
 ``` 
-![Result](images/VisualArc_ex1.png) </br>
+![Result](images/VisualArc_ex2.png) </br>
 !!! Note: It depend on your machine IDE, When you finish observe, if it doesn't continue the code please press Ctrl+C in command line console to turn off and re-run the python script without --visualize 'on' &nbsp;
 
 Parsed logical form (in [output_c.txt](output_c.txt)) with only sem feature, but the console also show var and gap feature.
@@ -190,7 +216,7 @@ Result (in [output_e.txt](output_e.txt))
 1200HR
 ```
 
-##### Result of the assignment (when the language parameter was the string 'english'):
+# Result of the assignment (when the language parameter was the string 'english'):
 Question:
 ```
 Which bus to Hồ Chí Minh city arrives at 05:00HR ?
@@ -233,7 +259,7 @@ B3
 ![Result](images/result.png)
 
 
-#### Other test:
+# Other test:
 Question:
 ```
 Xe bus nào đến thành phố Huế lúc 22:30HR ?

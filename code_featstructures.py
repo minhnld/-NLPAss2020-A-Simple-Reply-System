@@ -1,3 +1,7 @@
+"""
+© 2020 Nguyen Linh Dang Minh aka Minh Ng
+If there are any problems, contact me at minh.nldang@gmail.com or minh.nguyenlinhdang@hcmut.edu.vn 
+"""
 from __future__ import print_function
 from nltk.featstruct import FeatStruct
 from nltk.sem.logic import Variable, VariableExpression, Expression

@@ -1,3 +1,8 @@
+"""
+© 2020 Nguyen Linh Dang Minh aka Minh Ng
+If there are any problems, contact me at minh.nldang@gmail.com or minh.nguyenlinhdang@hcmut.edu.vn 
+"""
+
 import spacy
 from nltk import Tree
 from spacy import displacy
