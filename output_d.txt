@@ -1,0 +1,1 @@
+(PRINT-ALL ?f2(BUS ?f2)(ATIME ?f2 HCMC 05:00HR)(DTIME ?f2 ?sd ?td)(RUNTIME ?f2  ?sd HCMC))
